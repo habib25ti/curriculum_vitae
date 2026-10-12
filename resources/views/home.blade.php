@@ -168,7 +168,16 @@
                         <label for="pertanyaan" class="form-label">Pertanyaan</label>
                         <textarea class="form-control" rows="4" name="pertanyaan"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
+                    <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 </form>
             </div>
         </div>
