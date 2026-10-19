@@ -82,8 +82,8 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1 class="display-6 mb-2">{{ $username }} </h1>
-            <p class="lead mb-0">{{ $last_login }} </p>
+            <h1 class="display-6 mb-2"> {{ $username }} </h1>
+            <p> {{ $last_login }} </p>
         </div>
     </section>
 
@@ -151,37 +151,61 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Form Pertanyaan</h5>
-                    <form action="{{ route('question.store') }}" method="POST">
-	                    @csrf
-                    <div class="mb-3">
-                        <label for="nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" name="nama">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                        <textarea class="form-control" rows="4" name="pertanyaan"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                </form>
-            </div>
-        </div>
+
             <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title mb-3">Form Pertanyaan</h5>
+                    @if (session('success'))
+                        {{--
+                            Kita gunakan reflash() agar data session (nama, email, dll)
+                            tidak dihapus dan tetap bisa dipakai di halaman /question/response
+                        --}}
+                        @php session()->reflash(); @endphp
+
+                        <div class="alert alert-info">
+                            Terimakasih <strong>{{ session('nama') }}</strong>! Pertanyaan ini: <strong>
+                                {{ session('pertanyaan') }}</strong> akan segera direspon melalui email <strong>
+                                    {{ session('email') }}</strong>
+                        </div>
+
+                        {{-- Script untuk otomatis pindah halaman setelah 3 detik --}}
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = "{{ route('question.response') }}";
+                            }, 3000); // 3000 milidetik = 3 detik
+                        </script>
+                    @endif
+
+                    {{-- Notifikasi Error Validasi --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('question.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" value="{{ old('nama') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                            <textarea class="form-control" rows="4" name="pertanyaan">{{ old('pertanyaan') }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
+                    </form>
+                </div>
+                </div>
                 {{-- Alerts --}}
                 <div class="card ">
                     <div class="card-body">

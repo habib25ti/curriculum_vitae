@@ -13,7 +13,8 @@ Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post('question/store', [HomeController::class, 'store'])
-		->name('question.store');
+Route::post('question/store', [QuestionController::class, 'store'])->name('question.store');
+
+Route::get('question/response', [QuestionController::class, 'response'])->name('question.response');
 
 

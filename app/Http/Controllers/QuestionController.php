@@ -24,20 +24,39 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+          public function store(Request $request)
     {
+        // 1. Validasi input
         $request->validate([
-            'nama' => 'required|max:10',
+            'nama' => 'required',
             'email' => 'required|email',
-            'pertanyaan' => 'required|max:300|min:8',
+            'pertanyaan' => 'required'
         ]);
 
-        $data = [
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'pertanyaan' => $request->input('pertanyaan')
-        ];
-        return view('home-question-respon', $data);
+        // 2. Redirect kembali ke Home untuk memunculkan alert (Mencegah submit ulang)
+        return redirect()->back()->with([
+            'success' => true,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'pertanyaan' => $request->pertanyaan
+        ]);
+    }
+
+    /**
+     * Menampilkan halaman respon (home-question-respon)
+     */
+    public function response()
+    {
+        // Cegah akses langsung jika tidak ada session data (misal saat user iseng reload halaman ini)
+        if (!session()->has('success')) {
+            return redirect()->back();
+        }
+
+        return view('home-question-respon', [
+            'nama' => session('nama'),
+            'email' => session('email'),
+            'pertanyaan' => session('pertanyaan')
+        ]);
     }
 
     /**
