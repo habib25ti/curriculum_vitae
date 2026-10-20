@@ -55,7 +55,7 @@
 		</div>
 	</nav>
 
-	    <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
+    <nav id="sidebarMenu" class="sidebar d-lg-block bg-gray-800 text-white collapse" data-simplebar>
         <div class="sidebar-inner px-4 pt-3">
             <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                 <div class="d-flex align-items-center">
@@ -99,6 +99,16 @@
                             </svg>
                         </span>
                         <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item  active ">
+                    <a href="{{ route('pelanggan.index') }}" class="nav-link">
+                        <span class="sidebar-icon">
+                            <svg class="icon icon-xs me-2" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"></path>
+                            </svg>
+                        </span>
+                        <span class="sidebar-text">Pelanggan</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -776,12 +786,8 @@
 			<div class="col-12 col-xl-4">
 				<div class="col-12 px-0 mb-4">
 					<div class="card shadow border-0 text-center p-0">
-						
-                        <div class="profile-cover rounded-top"
-                            data-background="{{ asset('assets-admin/img/profile-cover.jpg') }}"
-                            style="background-image: url('{{ asset('assets-admin/img/profile-cover.jpg') }}');">
-                        </div>
-
+						<div class="profile-cover rounded-top" data-background="{{asset('assets-admin/img/profile-cover.jpg')}}" style="background: url(&quot;{{asset('assets-admin/img/profile-cover.jpg&quot;')}});"></div>
+						<div class="card-body pb-5">
 							<img src="{{asset('assets-admin/img/team/profile-picture-1.jpg')}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
 							<h4 class="h3">Neil Sims</h4>
 							<h5 class="fw-normal">Senior Software Engineer</h5>
@@ -967,7 +973,7 @@
 	<script src="{{asset('assets-admin/vendor/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 	<!-- Vendor JS -->
-	<script src="{{asset('assets-admin/onscreen/dist/on-screen.umd.min.js')}}"></script>
+	<script src="{{asset('assets-admin/vendor/onscreen/dist/on-screen.umd.min.js')}}"></script>
 </body>
 
 </html>
